@@ -5,6 +5,6 @@ logo: https://www.epita.fr/wp-content/themes/epita-theme/assets/img/svg/EPITA\_L
 ---
 
 # Index
-- [Editors](editor.html)
-- [Make](makefiles.html)
+- [Editors](editors.html)
+- [Make](makefile.html)
 - [Gdb](gdb.html)
