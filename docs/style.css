@@ -201,6 +201,10 @@ samp {
     padding: 0 0.5rem;
 }
 
+code.hljs {
+  background: var(--color-accent);
+}
+
 details {
     margin: 1.3rem 0;
 }

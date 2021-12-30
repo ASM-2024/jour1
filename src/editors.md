@@ -107,3 +107,7 @@ autocmd BufRead,BufNewFile *.c,*.h setlocal comments=s:/**,mb:**,ex:*/,s:/*,mb:*
 
 packadd termdebug
 ```
+
+# Our `.vimrc`s ...
+- [mathieu.fourre](https://github.com/mthfrr/config/blob/master/.vimrc)
+- TODO

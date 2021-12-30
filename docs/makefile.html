@@ -6,71 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="mathieu.fourre" />
   <title>GNU Make</title>
-  <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style>
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
   <link rel="stylesheet" href="style.css" />
 <style type="text/css">
   :root {
@@ -91,6 +30,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   nav {
     justify-content: space-evenly;
   }
+
   
   a:hover {
     filter: none;
@@ -106,7 +46,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <li><a href="#">Navigation</a>
             <ul>
             <li><a href="#lets-use-make">Let’s use Make</a></li>
-            <li><a href="#why">Why ?</a></li>
+            <li><a href="#why-use-make">Why use Make</a></li>
+            <li><a href="#goals">Goals</a></li>
+            <li><a href="#why-make-is-not-that-easy-to-learn">Why Make is not that easy to learn</a></li>
+            <li><a href="#default-variables">Default variables</a></li>
             <li><a href="#blob">blob</a></li>
             </ul>
           </li>
@@ -119,23 +62,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <hr>
 <article>
 <h1 id="lets-use-make">Let’s use Make</h1>
-<h1 id="why">Why ?</h1>
-<p>let’s do an example with <code>make</code></p>
-<pre class="make"><code>CFLAGS= -Wall -Werror
+<p>You have already use <code>Make</code> this year but many of you haven’t really understood it’s power.</p>
+<h1 id="why-use-make">Why use Make</h1>
+<ul>
+<li>flexible</li>
+<li>easy to use for c projects</li>
+<li>way better than and alias for gcc</li>
+</ul>
+<h1 id="goals">Goals</h1>
+<p>The goal is to make you confortable enough with make so that you can use it during the piscine. As mentioned in the Editors page, the piscine is about efficiency. Using (<strong>and reusing</strong>) a makefile is a good first step.</p>
+<h1 id="why-make-is-not-that-easy-to-learn">Why Make is not that easy to learn</h1>
+<p>The strength and weakness of <code>make</code> is that there are many implicite rules.</p>
+<p>For example:</p>
+<pre class="makefile"><code>OBJ = main.o func.o
 
-all: dep.c</code></pre>
+main: main.o
+    gcc main.o -o main
+
+main.o: main.c
+    gcc -c main.c -o main.o
+
+func.o: func.c
+    gcc -c func.c -o func.o</code></pre>
+<p>can be written:</p>
+<pre class="makefile"><code>OBJ = main.o func.o
+
+main: $(OBJ)</code></pre>
+<p>Here are some of the default rules (use <code>make -p</code> to have them all):</p>
+<pre class="makefile"><code># default
+COMPILE.c = $(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
+
+OUTPUT_OPTION = -o $@
+
+%.o: %.c
+#  recipe to execute (built-in):
+    $(COMPILE.c) $(OUTPUT_OPTION) $&lt;
+
+%: %.o
+#  recipe to execute (built-in):
+    $(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@</code></pre>
+<h1 id="default-variables">Default variables</h1>
+<p>As you can see, these rules use standardised variables. You change these variables.</p>
+<p>For example, during <code>42sh</code>, you will use something like this.</p>
+<pre class="makefile"><code>CC=gcc # explicitly set the c compiler
+CFLAGS=-Wall -Werror -Wextra -pedantic -std=c99</code></pre>
+<p>These variables are very useful and flexible.</p>
+<p>Here are some of these variables:</p>
+<pre class="make"><code>CC= # c compiler
+CFLAGS= # c flags
+CPPFLAGS= # c pre-processor flags (ex: -D_GNU_SOURCE)
+LDFLAGS= # linker flags
+LDLIBS= # libraries (ex: -lm)</code></pre>
+<p>let’s do an example with <code>make</code></p>
+<pre class="makefile"><code>CFLAGS= -Wall -Werror
+
+main: main.o func.o</code></pre>
 <p>here is the gnu manual : <a href="https://www.gnu.org/software/make/manual/make.html">link</a></p>
 <h1 id="blob">blob</h1>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define TRUE 1</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">**</span>argv<span class="op">)</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>TRUE<span class="op">)</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">&quot;Hello world!</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre class="c"><code>#include &lt;stdio.h&gt;
+
+#define TRUE 1
+
+int main(int argc, char **argv)
+{
+    if (TRUE)
+        printf(&quot;Hello world!\n&quot;);
+    return 0;
+}
+</code></pre>
 <hr />
 <p>after a break</p>
 <hr>
