@@ -1,9 +1,10 @@
 ---
 title: "Index"
 author: mathieu.fourre
+logo: https://www.epita.fr/wp-content/themes/epita-theme/assets/img/svg/EPITA\_LOGO\_INGENIEUR\_CMJN.svg
 ---
 
 # Index
-- [Editors]("/editor.html")
-- [Make]("/makefiles.html")
-- [Gdb]("/gdb.html")
+- [Editors](editor.html)
+- [Make](makefiles.html)
+- [Gdb](gdb.html)
