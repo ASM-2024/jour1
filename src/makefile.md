@@ -83,32 +83,23 @@ LDFLAGS= # linker flags
 LDLIBS= # libraries (ex: -lm)
 ```
 
+# Exercice
 
-let's do an example with `make`
+Your goal is to prepare a makefile to help building piscine-type exercises.
 
-```makefile
-CFLAGS= -Wall -Werror
-
-main: main.o func.o
+```sh
+$ ls
+Makefile
+file1.c
+file2.c
+file3.c
+file4.c
 ```
 
-here is the gnu manual : [link](https://www.gnu.org/software/make/manual/make.html)
+You will create 3 targets:
 
-# blob
+- library: produce a libfile.a library
+- test:
+- clean
 
-```c
-#include <stdio.h>
-
-#define TRUE 1
-
-int main(int argc, char **argv)
-{
-    if (TRUE)
-        printf("Hello world!\n");
-    return 0;
-}
-
-```
----
-
-after a break
+Here is the gnu manual : [link](https://www.gnu.org/software/make/manual/make.html)

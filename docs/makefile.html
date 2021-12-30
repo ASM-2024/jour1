@@ -50,7 +50,7 @@
             <li><a href="#goals">Goals</a></li>
             <li><a href="#why-make-is-not-that-easy-to-learn">Why Make is not that easy to learn</a></li>
             <li><a href="#default-variables">Default variables</a></li>
-            <li><a href="#blob">blob</a></li>
+            <li><a href="#exercice">Exercice</a></li>
             </ul>
           </li>
       </ul>
@@ -113,25 +113,21 @@ CFLAGS= # c flags
 CPPFLAGS= # c pre-processor flags (ex: -D_GNU_SOURCE)
 LDFLAGS= # linker flags
 LDLIBS= # libraries (ex: -lm)</code></pre>
-<p>let’s do an example with <code>make</code></p>
-<pre class="makefile"><code>CFLAGS= -Wall -Werror
-
-main: main.o func.o</code></pre>
-<p>here is the gnu manual : <a href="https://www.gnu.org/software/make/manual/make.html">link</a></p>
-<h1 id="blob">blob</h1>
-<pre class="c"><code>#include &lt;stdio.h&gt;
-
-#define TRUE 1
-
-int main(int argc, char **argv)
-{
-    if (TRUE)
-        printf(&quot;Hello world!\n&quot;);
-    return 0;
-}
-</code></pre>
-<hr />
-<p>after a break</p>
+<h1 id="exercice">Exercice</h1>
+<p>Your goal is to prepare a makefile to help building piscine-type exercises.</p>
+<pre class="sh"><code>$ ls
+Makefile
+file1.c
+file2.c
+file3.c
+file4.c</code></pre>
+<p>You will create 3 targets:</p>
+<ul>
+<li>library: produce a libfile.a library</li>
+<li>test:</li>
+<li>clean</li>
+</ul>
+<p>Here is the gnu manual : <a href="https://www.gnu.org/software/make/manual/make.html">link</a></p>
 <hr>
 </article>
 </main>
