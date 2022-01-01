@@ -194,7 +194,6 @@ $ tree make_exo
 │   │   ├── add.c
 │   │   └── add.h
 │   ├── main.c
-│   ├── main.o
 │   ├── mul
 │   │   ├── mul.c
 │   │   └── mul.h
@@ -259,7 +258,7 @@ rm -f  src/add/add.o  src/mul/mul.o  src/sub/sub.o
 rm -f  tests/testfile.o tests/testfile.o
 ```
 
-Remember, the true goal is to make it as generic and elegent as possible not
+Remember, the true goal is to make it as **generic** and **elegent** as possible not
 to brut-force your way by hard coding everything `:)`
 
 **Impress us !**
@@ -270,3 +269,6 @@ A correction will be given either during the lesson or afterwards. It will be on
 Discord and here on this repo. This will **not** be the **only** nor **the best**
 solution to the problem but do take the time to read it as it uses advanced
 concepts !
+
+# Fun fact, this page was generated using pandoc and make
+[link](https://github.com/mthfrr/seminaire_spe_2022/blob/master/Makefile)
