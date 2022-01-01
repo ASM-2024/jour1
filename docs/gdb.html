@@ -67,7 +67,7 @@
 </p>
 <p>Refer to https://ftp.gnu.org/old-gnu/Manuals/gdb/html_chapter/gdb_toc.html for a complete guide.</p>
 <h1 id="how-to-use-gdb-for-c-code">How to use GDB for C code</h1>
-<p>Use the provided debugme.c file for the following tutorial<br />
+<p>Use the provided <a href="debugme.c">debugme.c</a> file for the following tutorial<br />
 <br />
 The first step to using GDB with the c language is to add “-g” to the compilation flags you use<br />
 <code>gcc debugme.c -g</code><br />
@@ -129,8 +129,12 @@ And many more</p>
 <p>If you press enter while no command is written, GDB will repeat the last command used. This means that there is no need to repeat the same command multiple times in a row<br />
 <br />
 You can change what part of GDB is focused by using <em>Ctrl-x o</em>. This is very useful because specific keyboard inputs (E.g. Directional arrows) affect the part of GDB that is focused. If the terminal part is focused, you can use the arrows to modify the current command and go back to the previous commands, just like in a normal terminal.<br />
-</p>
+<br />
+If you want to debug a program with arguments, you can do the following: <code>gdb --args ./MyProgram arg1 arg2</code></p>
 <h1 id="going-further">Going further</h1>
+<p>GDB has implemented reverse-debugging, which allows you to go back in your program: <a href="https://sourceware.org/gdb/wiki/ReverseDebug">Reverse debuggin with GDB</a><br />
+<br />
+As said in the Breakpoint section, read up on <a href="https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_29.html#SEC30">Watchpoints</a> and <a href="https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_30.html#SEC31">Catchpoints</a></p>
 <hr>
 </article>
 </main>
