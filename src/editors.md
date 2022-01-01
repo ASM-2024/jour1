@@ -36,7 +36,7 @@ You may not have any by default but you are still using the default `.vimrc`
 setted by EPITA.
 
 
-## PIE specific setup
+# PIE specific setup
 
 As you aready know, only the `$HOME/afs` folder is preserved on the PIE.
 This means that if your create a `$HOME/.vimrc` it will be lost after a reboot.
