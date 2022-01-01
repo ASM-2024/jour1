@@ -14,7 +14,7 @@ GDB can be used to debug many languages, such as Assembly, C, C++ and Rust. This
 Refer to https://ftp.gnu.org/old-gnu/Manuals/gdb/html_chapter/gdb_toc.html for a complete guide.
 
 # How to use GDB for C code
-Use the provided debugme.c file for the following tutorial\
+Use the provided [debugme.c](debugme.c) file for the following tutorial\
 \
 The first step to using GDB with the c language is to add "-g" to the compilation flags you use\
  ```gcc debugme.c -g```\
