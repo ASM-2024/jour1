@@ -48,12 +48,15 @@
             <li><a href="#lets-use-make">Let’s use Make</a></li>
             <li><a href="#why-use-make">Why use Make</a></li>
             <li><a href="#goals">Goals</a></li>
+            <li><a href="#documentation">Documentation</a></li>
             <li><a href="#why-make-is-not-that-easy-to-learn">Why Make is not that easy to learn</a></li>
             <li><a href="#implicit-variables">Implicit variables</a></li>
             <li><a href="#changing-variables-value-only-in-specifc-rules">Changing variables value only in specifc rules</a></li>
             <li><a href="#pattern-rules">Pattern rules</a></li>
             <li><a href="#automatic-variables">Automatic variables</a></li>
+            <li><a href="#functions">Functions</a></li>
             <li><a href="#exercice">Exercice</a></li>
+            <li><a href="#correction">Correction</a></li>
             </ul>
           </li>
       </ul>
@@ -74,6 +77,9 @@
 </ul>
 <h1 id="goals">Goals</h1>
 <p>The goal is to make you confortable enough with make so that you can use it during the piscine. As mentioned in the Editors page, the piscine is about efficiency. Using (<strong>and reusing</strong>) a makefile is a good first step.</p>
+<h1 id="documentation">Documentation</h1>
+<p>The official documentation is your best friend. It’s very complete.</p>
+<p><a href="https://www.gnu.org/software/make/manual/make.html">click to see your best friend</a></p>
 <h1 id="why-make-is-not-that-easy-to-learn">Why Make is not that easy to learn</h1>
 <p>The strength and weakness of <code>make</code> is that there are many implicite rules.</p>
 <p>For example:</p>
@@ -91,7 +97,7 @@ func.o: func.c
 <pre class="makefile"><code>OBJ = main.o func.o
 
 main: $(OBJ)</code></pre>
-<p>Here are some of the default rules (use <code>make -p</code> to have them all):</p>
+<p>Here are some of the default rules (use <code>make -p</code> to see them all):</p>
 <pre class="makefile"><code># default
 COMPILE.c = $(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
 
@@ -153,21 +159,77 @@ rule_with_debug: file.o</code></pre>
     echo $^ # file.c header.h
     echo $* # file</code></pre>
 <p>doc: <a href="https://www.gnu.org/software/make/manual/make.html#Automatic-Variables">Automatic-variables</a></p>
+<h1 id="functions">Functions</h1>
+<p>Make comes with many functions. They can be used to define variables for example.</p>
+<p><a href="https://www.gnu.org/software/make/manual/make.html#Functions">Functions</a></p>
+<p>To call a function do <code>$(function arguments)</code>.</p>
+<p>Let’s see some useful functions:</p>
+<pre class="makefile"><code>ALL_FILES_IN_SRC = $(wildcard src/*)
+ALL_DIRECTORIES_IN_SRC = $(dir $(wildcard src/*/)
+ONLY_FOO = $(filter-out bar, foo bar)
+BAR_FOO_LOSE = $(sort foo bar lose)
+HELLO_I_AM_BOB = $(patsubst %jack, hello_%bob, i_am_jack)
+PREFIXFOO = $(addprefix prefix, foo)
+FOOSUFFIX = $(addsuffix suffic, foo)</code></pre>
 <h1 id="exercice">Exercice</h1>
-<p>Your goal is to prepare a makefile to help building piscine-type exercises.</p>
-<pre class="sh"><code>$ ls
-Makefile
-file1.c
-file2.c
-file3.c
-file4.c</code></pre>
-<p>You will create 3 targets:</p>
-<ul>
-<li>library: produce a libfile.a library</li>
-<li>test:</li>
-<li>clean</li>
-</ul>
-<p>Here is the gnu manual : <a href="https://www.gnu.org/software/make/manual/make.html">link</a></p>
+<p>Your goal is to prepare a makefile to help building a small project and it’s test-suite.</p>
+<p>The test-suite uses <code>Criterion</code> which is a simple to use testing framework. (I strongly encourage you to use it to test you piscine exercises)</p>
+<p>The project tree looks like this:</p>
+<pre class="sh"><code>$ tree make_exo
+.
+├── Makefile
+├── src
+│   ├── add
+│   │   ├── add.c
+│   │   └── add.h
+│   ├── main.c
+│   ├── main.o
+│   ├── mul
+│   │   ├── mul.c
+│   │   └── mul.h
+│   └── sub
+│       ├── sub.c
+│       └── sub.h
+└── tests
+    └── testfile.c
+
+5 directories, 10 files</code></pre>
+<p>Your job is to write the Makefile for this project. Try to make it as clean and generic as possible !</p>
+<p>Here are the rule you will implement: - release (the default target) - debug - test - clean</p>
+<p>Here are the outputs of the reference <code>Makefile</code>. Use them as a guide on what to do and which flag to add for each rule:</p>
+<pre class="sh"><code>$ make # release
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -O2 -DNDBUG   -c -o src/prog.o src/prog.c
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -O2 -DNDBUG   -c -o src/add/add.o src/add/add.c
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -O2 -DNDBUG   -c -o src/mul/mul.o src/mul/mul.c
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -O2 -DNDBUG   -c -o src/sub/sub.o src/sub/sub.c
+gcc   src/prog.o src/add/add.o src/mul/mul.o src/sub/sub.o   -o prog</code></pre>
+<pre class="sh"><code>$ make debug
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -g -fsanitize=address   -c -o src/prog.o src/prog.c
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -g -fsanitize=address   -c -o src/add/add.o src/add/add.c
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -g -fsanitize=address   -c -o src/mul/mul.o src/mul/mul.c
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -g -fsanitize=address   -c -o src/sub/sub.o src/sub/sub.c
+gcc -fsanitize=address  src/prog.o src/add/add.o src/mul/mul.o src/sub/sub.o   -o prog</code></pre>
+<pre class="sh"><code>$ make test
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -g -fsanitize=address   -c -o src/add/add.o src/add/add.c
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -g -fsanitize=address   -c -o src/mul/mul.o src/mul/mul.c
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -g -fsanitize=address   -c -o src/sub/sub.o src/sub/sub.c
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -g -fsanitize=address   -c -o tests/testfile.o tests/testfile.c
+gcc -fsanitize=address -lcriterion  src/add/add.o src/mul/mul.o src/sub/sub.o tests/testfile.o   -o test-suite
+./test-suite
+[----] tests/testfile.c:19: Assertion failed: The expression (add(1, 1)) == (3) is false.
+[FAIL] add::fail: (0.00s)
+[====] Synthesis: Tested: 5 | Passing: 4 | Failing: 1 | Crashing: 0 
+make: *** [Makefile:28: test] Error 1</code></pre>
+<pre class="sh"><code>$ make clean
+rm -f prog
+rm -f test-suite
+rm -f src/prog.o
+rm -f  src/add/add.o  src/mul/mul.o  src/sub/sub.o
+rm -f  tests/testfile.o tests/testfile.o</code></pre>
+<p>Remember, the true goal is to make it as generic and elegent as possible not to brut-force your way by hard coding everything <code>:)</code></p>
+<p><strong>Impress us !</strong></p>
+<h1 id="correction">Correction</h1>
+<p><strong>A</strong> correction will be given during the lecon or afterwards on Discord and this repo. This is <strong>not</strong> the best solution but take the time to read it as it uses advanced concepts !</p>
 <hr>
 </article>
 </main>
