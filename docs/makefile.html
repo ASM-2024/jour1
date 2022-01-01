@@ -49,7 +49,10 @@
             <li><a href="#why-use-make">Why use Make</a></li>
             <li><a href="#goals">Goals</a></li>
             <li><a href="#why-make-is-not-that-easy-to-learn">Why Make is not that easy to learn</a></li>
-            <li><a href="#default-variables">Default variables</a></li>
+            <li><a href="#implicit-variables">Implicit variables</a></li>
+            <li><a href="#changing-variables-value-only-in-specifc-rules">Changing variables value only in specifc rules</a></li>
+            <li><a href="#pattern-rules">Pattern rules</a></li>
+            <li><a href="#automatic-variables">Automatic variables</a></li>
             <li><a href="#exercice">Exercice</a></li>
             </ul>
           </li>
@@ -62,7 +65,7 @@
 <hr>
 <article>
 <h1 id="lets-use-make">Let’s use Make</h1>
-<p>You have already use <code>Make</code> this year but many of you haven’t really understood it’s power.</p>
+<p>You have already use <code>make</code> this year but many of you haven’t really understood it’s power.</p>
 <h1 id="why-use-make">Why use Make</h1>
 <ul>
 <li>flexible</li>
@@ -101,8 +104,9 @@ OUTPUT_OPTION = -o $@
 %: %.o
 #  recipe to execute (built-in):
     $(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@</code></pre>
-<h1 id="default-variables">Default variables</h1>
-<p>As you can see, these rules use standardised variables. You change these variables.</p>
+<p>doc: <a href="https://www.gnu.org/software/make/manual/html_node/Implicit-Rules.html">Implicit-Rules</a></p>
+<h1 id="implicit-variables">Implicit variables</h1>
+<p>As you can see, these implicit rules use standardised variables. You may change these variables.</p>
 <p>For example, during <code>42sh</code>, you will use something like this.</p>
 <pre class="makefile"><code>CC=gcc # explicitly set the c compiler
 CFLAGS=-Wall -Werror -Wextra -pedantic -std=c99</code></pre>
@@ -113,6 +117,42 @@ CFLAGS= # c flags
 CPPFLAGS= # c pre-processor flags (ex: -D_GNU_SOURCE)
 LDFLAGS= # linker flags
 LDLIBS= # libraries (ex: -lm)</code></pre>
+<p>doc: <a href="https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html">Implicit-Variables</a></p>
+<h1 id="changing-variables-value-only-in-specifc-rules">Changing variables value only in specifc rules</h1>
+<p>Sometimes, you may want to change the value of a variable only for a rule.</p>
+<p>To do this, you need to add a line just above the rule like so:</p>
+<pre class="makefile"><code>rule_with_debug: CFLAGS += -g
+rule_with_debug: file.o</code></pre>
+<p>doc: <a href="https://ftp.gnu.org/old-gnu/Manuals/make-3.79.1/html_chapter/make_6.html#SEC65">appending more text to variables</a></p>
+<h1 id="pattern-rules">Pattern rules</h1>
+<p>You can use <code>%</code> as a sort of wildcard. For example, to define a rule that create a <code>.foo</code> from a <code>.bar</code> file with the same name, you can do:</p>
+<pre class="makefile"><code>%.foo: %.bar
+    # do things</code></pre>
+<p>you can also set prefixes:</p>
+<pre class="makefile"><code>folder1/%.foo: folder2/%.bar
+    # do things</code></pre>
+<p>doc: <a href="https://www.gnu.org/software/make/manual/make.html#Pattern-Rules">Pattern-Rules</a></p>
+<h1 id="automatic-variables">Automatic variables</h1>
+<p>I you are following you may be wondering how you can write a rule while using <code>%</code>. Indeed, this doesn’t work:</p>
+<pre class="makefile"><code>%.o: %.c
+    gcc -c %.c -o %.o</code></pre>
+<p>To do this, you will have to use automatic variables.</p>
+<ul>
+<li><code>$@</code> The file name of the target of the rule</li>
+<li><code>$&lt;</code> The name of the first prerequisite</li>
+<li><code>$?</code> The names of all the prerequisites that are newer than the target</li>
+<li><code>$^</code> The names of all the prerequisites</li>
+<li><code>$*</code> The stem of an implicit rule</li>
+</ul>
+<p>For example:</p>
+<pre class="makefile"><code>all: file.o
+
+%.o: %.c header.h
+    echo $@ # file.o
+    echo $&lt; # file.c
+    echo $^ # file.c header.h
+    echo $* # file</code></pre>
+<p>doc: <a href="https://www.gnu.org/software/make/manual/make.html#Automatic-Variables">Automatic-variables</a></p>
 <h1 id="exercice">Exercice</h1>
 <p>Your goal is to prepare a makefile to help building piscine-type exercises.</p>
 <pre class="sh"><code>$ ls

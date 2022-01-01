@@ -6,7 +6,7 @@ logo: https://www.epita.fr/wp-content/themes/epita-theme/assets/img/svg/EPITA\_L
 
 # Let's use Make
 
-You have already use `Make` this year but many of you haven't really understood
+You have already use `make` this year but many of you haven't really understood
 it's power.
 
 # Why use Make
@@ -61,10 +61,12 @@ OUTPUT_OPTION = -o $@
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
 ```
 
-# Default variables
+doc: [Implicit-Rules](https://www.gnu.org/software/make/manual/html_node/Implicit-Rules.html)
 
-As you can see, these rules use standardised variables.
-You change these variables.
+# Implicit variables
+
+As you can see, these implicit rules use standardised variables.
+You may change these variables.
 
 For example, during `42sh`, you will use something like this.
 ```makefile
@@ -82,6 +84,66 @@ CPPFLAGS= # c pre-processor flags (ex: -D_GNU_SOURCE)
 LDFLAGS= # linker flags
 LDLIBS= # libraries (ex: -lm)
 ```
+
+doc: [Implicit-Variables](https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html)
+
+# Changing variables value only in specifc rules
+
+Sometimes, you may want to change the value of a variable only for a rule.
+
+To do this, you need to add a line just above the rule like so:
+```makefile
+rule_with_debug: CFLAGS += -g
+rule_with_debug: file.o
+```
+doc: [appending more text to variables](https://ftp.gnu.org/old-gnu/Manuals/make-3.79.1/html_chapter/make_6.html#SEC65)
+
+# Pattern rules
+
+You can use `%` as a sort of wildcard.
+For example, to define a rule that create a `.foo` from a `.bar` file with the same
+name, you can do:
+```makefile
+%.foo: %.bar
+    # do things
+```
+
+you can also set prefixes:
+```makefile
+folder1/%.foo: folder2/%.bar
+    # do things
+```
+doc: [Pattern-Rules](https://www.gnu.org/software/make/manual/make.html#Pattern-Rules)
+
+# Automatic variables
+I you are following you may be wondering how you can write a rule while using
+`%`. Indeed, this doesn't work:
+
+```makefile
+%.o: %.c
+    gcc -c %.c -o %.o
+```
+To do this, you will have to use automatic variables.
+
+- `$@` The file name of the target of the rule
+- `$<` The name of the first prerequisite
+- `$?` The names of all the prerequisites that are newer than the target
+- `$^` The names of all the prerequisites
+- `$*` The stem of an implicit rule
+
+For example:
+
+```makefile
+all: file.o
+
+%.o: %.c header.h
+    echo $@ # file.o
+    echo $< # file.c
+    echo $^ # file.c header.h
+    echo $* # file
+```
+
+doc: [Automatic-variables](https://www.gnu.org/software/make/manual/make.html#Automatic-Variables)
 
 # Exercice
 
