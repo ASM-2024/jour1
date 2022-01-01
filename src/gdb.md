@@ -34,6 +34,26 @@ This concludes the basic of using GDB
 
 # Printing information
 
+In order to debug efficiently, you will need to know the value of the variables of your program. To do that in GDB, you can use ```print myvar```\
+You can also print an expression: \
+```print mylist[2]```\
+```print *mypointer```\
+You can also cast the variables you print"\
+\
+A very useful feature of the GDB print function is the *format*. You can use it the following way:\
+```print /MyFormat MyVar```\
+The valid formats are:\
+o - octal\
+x - hexadecimal\
+u - unsigned decimal\
+t - binary\
+f - floating point\
+a - address\
+c - char\
+\
+If you need to print something very often, you can use the ```display``` command. It is used the same way as the ```print``` command, except it will print what you asked it to every time you write another command.\
+To stop a display, you can use ```undisplay```.
+
 # Breakpoints
 
 # Abbreviations
@@ -42,5 +62,6 @@ This concludes the basic of using GDB
 
 No need to repeat the same command multiple times in a row\
 \
-Ctrl-X O\
+Ctrl-x o\
 
+# Going further
