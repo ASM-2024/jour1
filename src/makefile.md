@@ -72,7 +72,7 @@ doc: [Implicit-Rules](https://www.gnu.org/software/make/manual/html_node/Implici
 # Implicit variables
 
 As you can see, these implicit rules use standardised variables.
-You may change these variables.
+You may change the value of these variables.
 
 For example, during `42sh`, you will use something like this.
 ```makefile
@@ -82,7 +82,7 @@ CFLAGS=-Wall -Werror -Wextra -pedantic -std=c99
 
 These variables are very useful and flexible.
 
-Here are some of these variables:
+Here are some of them:
 ```make
 CC= # c compiler
 CFLAGS= # c flags
@@ -100,7 +100,7 @@ Sometimes, you may want to change the value of a variable only for a rule.
 To do this, you need to add a line just above the rule like so:
 ```makefile
 rule_with_debug: CFLAGS += -g
-rule_with_debug: file.o
+rule_with_debug: file.o # normal dependancies
 ```
 doc: [appending more text to variables](https://ftp.gnu.org/old-gnu/Manuals/make-3.79.1/html_chapter/make_6.html#SEC65)
 
@@ -135,7 +135,7 @@ To do this, you will have to use automatic variables.
 - `$<` The name of the first prerequisite
 - `$?` The names of all the prerequisites that are newer than the target
 - `$^` The names of all the prerequisites
-- `$*` The stem of an implicit rule
+- `$*` The stem of a pattern rule rule
 
 For example:
 
@@ -155,27 +155,33 @@ doc: [Automatic-variables](https://www.gnu.org/software/make/manual/make.html#Au
 
 Make comes with many functions. They can be used to define variables for example.
 
-[Functions](https://www.gnu.org/software/make/manual/make.html#Functions)
+doc: [Functions](https://www.gnu.org/software/make/manual/make.html#Functions)
 
-To call a function do `$(function arguments)`.
+To call a function do `$(function arg1, arg2, ...)`.
 
 Let's see some useful functions:
 ```makefile
 ALL_FILES_IN_SRC = $(wildcard src/*)
+
 ALL_DIRECTORIES_IN_SRC = $(dir $(wildcard src/*/)
+
 ONLY_FOO = $(filter-out bar, foo bar)
+
 BAR_FOO_LOSE = $(sort foo bar lose)
+
 HELLO_I_AM_BOB = $(patsubst %jack, hello_%bob, i_am_jack)
+
 PREFIXFOO = $(addprefix prefix, foo)
+
 FOOSUFFIX = $(addsuffix suffic, foo)
 ```
 
 # Exercice
 
-Your goal is to prepare a makefile to help building a small project and it's
+Your goal is to prepare a makefile to help building a small project and its
 test-suite.
 
-The test-suite uses `Criterion` which is a simple to use testing framework.
+The test-suite uses `Criterion` which is a simple-to-use testing framework.
 (I strongly encourage you to use it to test you piscine exercises)
 
 The project tree looks like this:
@@ -201,17 +207,17 @@ $ tree make_exo
 5 directories, 10 files
 ```
 
-[skeleton](make_exo.tar.gz) (reminder: `tar -xvf make_exo.tar.gz` )
+Download the [skeleton](make_exo.tar.gz) here. (reminder: `tar -xvf make_exo.tar.gz` )
 
-Your job is to write the Makefile for this project.
+Your job is to write the `Makefile` for this project.
 Try to make it as clean and generic as possible !
 
 Here are the rule you will implement:
 
-- release (the default target)
-- debug
-- test
-- clean
+- `release` (will also be the default target)
+- `debug`
+- `test`
+- `clean`
 
 Here are the outputs of the reference `Makefile`.
 Use them as a guide on what to do and which flag to add for each rule:
@@ -232,7 +238,7 @@ gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -g
 gcc -fsanitize=address  src/prog.o src/add/add.o src/mul/mul.o src/sub/sub.o   -o prog
 ```
 ```sh
-$ make test
+$ make test # this rule also execute the binary test-suite
 gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -g -fsanitize=address   -c -o src/add/add.o src/add/add.c
 gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -g -fsanitize=address   -c -o src/mul/mul.o src/mul/mul.c
 gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -g -fsanitize=address   -c -o src/sub/sub.o src/sub/sub.c
@@ -260,6 +266,7 @@ to brut-force your way by hard coding everything `:)`
 
 # Correction
 
-**A** correction will be given during the lecon or afterwards on Discord and
-this repo. This is **not** the best solution but take the time to read it as
-it uses advanced concepts !
+A correction will be given either during the lesson or afterwards. It will be on
+Discord and here on this repo. This will **not** be the **only** nor **the best**
+solution to the problem but do take the time to read it as it uses advanced
+concepts !

@@ -112,12 +112,12 @@ OUTPUT_OPTION = -o $@
     $(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@</code></pre>
 <p>doc: <a href="https://www.gnu.org/software/make/manual/html_node/Implicit-Rules.html">Implicit-Rules</a></p>
 <h1 id="implicit-variables">Implicit variables</h1>
-<p>As you can see, these implicit rules use standardised variables. You may change these variables.</p>
+<p>As you can see, these implicit rules use standardised variables. You may change the value of these variables.</p>
 <p>For example, during <code>42sh</code>, you will use something like this.</p>
 <pre class="makefile"><code>CC=gcc # explicitly set the c compiler
 CFLAGS=-Wall -Werror -Wextra -pedantic -std=c99</code></pre>
 <p>These variables are very useful and flexible.</p>
-<p>Here are some of these variables:</p>
+<p>Here are some of them:</p>
 <pre class="make"><code>CC= # c compiler
 CFLAGS= # c flags
 CPPFLAGS= # c pre-processor flags (ex: -D_GNU_SOURCE)
@@ -128,7 +128,7 @@ LDLIBS= # libraries (ex: -lm)</code></pre>
 <p>Sometimes, you may want to change the value of a variable only for a rule.</p>
 <p>To do this, you need to add a line just above the rule like so:</p>
 <pre class="makefile"><code>rule_with_debug: CFLAGS += -g
-rule_with_debug: file.o</code></pre>
+rule_with_debug: file.o # normal dependancies</code></pre>
 <p>doc: <a href="https://ftp.gnu.org/old-gnu/Manuals/make-3.79.1/html_chapter/make_6.html#SEC65">appending more text to variables</a></p>
 <h1 id="pattern-rules">Pattern rules</h1>
 <p>You can use <code>%</code> as a sort of wildcard. For example, to define a rule that create a <code>.foo</code> from a <code>.bar</code> file with the same name, you can do:</p>
@@ -148,7 +148,7 @@ rule_with_debug: file.o</code></pre>
 <li><code>$&lt;</code> The name of the first prerequisite</li>
 <li><code>$?</code> The names of all the prerequisites that are newer than the target</li>
 <li><code>$^</code> The names of all the prerequisites</li>
-<li><code>$*</code> The stem of an implicit rule</li>
+<li><code>$*</code> The stem of a pattern rule rule</li>
 </ul>
 <p>For example:</p>
 <pre class="makefile"><code>all: file.o
@@ -161,19 +161,25 @@ rule_with_debug: file.o</code></pre>
 <p>doc: <a href="https://www.gnu.org/software/make/manual/make.html#Automatic-Variables">Automatic-variables</a></p>
 <h1 id="functions">Functions</h1>
 <p>Make comes with many functions. They can be used to define variables for example.</p>
-<p><a href="https://www.gnu.org/software/make/manual/make.html#Functions">Functions</a></p>
-<p>To call a function do <code>$(function arguments)</code>.</p>
+<p>doc: <a href="https://www.gnu.org/software/make/manual/make.html#Functions">Functions</a></p>
+<p>To call a function do <code>$(function arg1, arg2, ...)</code>.</p>
 <p>Let’s see some useful functions:</p>
 <pre class="makefile"><code>ALL_FILES_IN_SRC = $(wildcard src/*)
+
 ALL_DIRECTORIES_IN_SRC = $(dir $(wildcard src/*/)
+
 ONLY_FOO = $(filter-out bar, foo bar)
+
 BAR_FOO_LOSE = $(sort foo bar lose)
+
 HELLO_I_AM_BOB = $(patsubst %jack, hello_%bob, i_am_jack)
+
 PREFIXFOO = $(addprefix prefix, foo)
+
 FOOSUFFIX = $(addsuffix suffic, foo)</code></pre>
 <h1 id="exercice">Exercice</h1>
-<p>Your goal is to prepare a makefile to help building a small project and it’s test-suite.</p>
-<p>The test-suite uses <code>Criterion</code> which is a simple to use testing framework. (I strongly encourage you to use it to test you piscine exercises)</p>
+<p>Your goal is to prepare a makefile to help building a small project and its test-suite.</p>
+<p>The test-suite uses <code>Criterion</code> which is a simple-to-use testing framework. (I strongly encourage you to use it to test you piscine exercises)</p>
 <p>The project tree looks like this:</p>
 <pre class="sh"><code>$ tree make_exo
 .
@@ -194,14 +200,14 @@ FOOSUFFIX = $(addsuffix suffic, foo)</code></pre>
     └── testfile.c
 
 5 directories, 10 files</code></pre>
-<p><a href="make_exo.tar.gz">skeleton</a> (reminder: <code>tar -xvf make_exo.tar.gz</code> )</p>
-<p>Your job is to write the Makefile for this project. Try to make it as clean and generic as possible !</p>
+<p>Download the <a href="make_exo.tar.gz">skeleton</a> here. (reminder: <code>tar -xvf make_exo.tar.gz</code> )</p>
+<p>Your job is to write the <code>Makefile</code> for this project. Try to make it as clean and generic as possible !</p>
 <p>Here are the rule you will implement:</p>
 <ul>
-<li>release (the default target)</li>
-<li>debug</li>
-<li>test</li>
-<li>clean</li>
+<li><code>release</code> (will also be the default target)</li>
+<li><code>debug</code></li>
+<li><code>test</code></li>
+<li><code>clean</code></li>
 </ul>
 <p>Here are the outputs of the reference <code>Makefile</code>. Use them as a guide on what to do and which flag to add for each rule:</p>
 <pre class="sh"><code>$ make # release
@@ -216,7 +222,7 @@ gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -g
 gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -g -fsanitize=address   -c -o src/mul/mul.o src/mul/mul.c
 gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -g -fsanitize=address   -c -o src/sub/sub.o src/sub/sub.c
 gcc -fsanitize=address  src/prog.o src/add/add.o src/mul/mul.o src/sub/sub.o   -o prog</code></pre>
-<pre class="sh"><code>$ make test
+<pre class="sh"><code>$ make test # this rule also execute the binary test-suite
 gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -g -fsanitize=address   -c -o src/add/add.o src/add/add.c
 gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -g -fsanitize=address   -c -o src/mul/mul.o src/mul/mul.c
 gcc -Wall -Werror -Wextra -pedantic -std=c99 -Isrc/add/ -Isrc/mul/ -Isrc/sub/ -g -fsanitize=address   -c -o src/sub/sub.o src/sub/sub.c
@@ -236,7 +242,7 @@ rm -f  tests/testfile.o tests/testfile.o</code></pre>
 <p>Remember, the true goal is to make it as generic and elegent as possible not to brut-force your way by hard coding everything <code>:)</code></p>
 <p><strong>Impress us !</strong></p>
 <h1 id="correction">Correction</h1>
-<p><strong>A</strong> correction will be given during the lecon or afterwards on Discord and this repo. This is <strong>not</strong> the best solution but take the time to read it as it uses advanced concepts !</p>
+<p>A correction will be given either during the lesson or afterwards. It will be on Discord and here on this repo. This will <strong>not</strong> be the <strong>only</strong> nor <strong>the best</strong> solution to the problem but do take the time to read it as it uses advanced concepts !</p>
 <hr>
 </article>
 </main>
