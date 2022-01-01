@@ -47,10 +47,8 @@
             <ul>
             <li><a href="#why">Why ?</a></li>
             <li><a href="#vim-or-emacs">Vim or Emacs</a></li>
-            <li><a href="#setting-up-vim">Setting up VIM</a>
-            <ul>
+            <li><a href="#setting-up-vim">Setting up VIM</a></li>
             <li><a href="#pie-specific-setup">PIE specific setup</a></li>
-            </ul></li>
             <li><a href="#an-example-of-.vimrc-parts-of-mine">An example of .vimrc (parts of mine)</a></li>
             <li><a href="#our-.vimrcs">Our <code>.vimrc</code>s …</a></li>
             </ul>
@@ -74,7 +72,7 @@
 <h1 id="setting-up-vim">Setting up VIM</h1>
 <p>The first thing you need to know is how to configure Vim.</p>
 <p>Look for a file called <code>.vimrc</code> in your <code>$HOME</code> folder. You may not have any by default but you are still using the default <code>.vimrc</code> setted by EPITA.</p>
-<h2 id="pie-specific-setup">PIE specific setup</h2>
+<h1 id="pie-specific-setup">PIE specific setup</h1>
 <p>As you aready know, only the <code>$HOME/afs</code> folder is preserved on the PIE. This means that if your create a <code>$HOME/.vimrc</code> it will be lost after a reboot. The soution is to create the file in <code>$HOME/afs/.config/</code> and then add the name of the file in the special script in the same folder.</p>
 <pre class="sh"><code>$ touch ~/afs/.config/vimrc # note that there is not point here
 $ vim ~/afs/.config/install.sh</code></pre>
