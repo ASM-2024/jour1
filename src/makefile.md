@@ -1,7 +1,7 @@
 ---
 title: "GNU Make"
 author: mathieu.fourre
-logo: https://www.epita.fr/wp-content/themes/epita-theme/assets/img/svg/EPITA\_LOGO\_INGENIEUR\_CMJN.svg
+logo: https://avatars.githubusercontent.com/u/96961500?s=200&v=4
 ---
 
 # Let's use Make
