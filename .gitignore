@@ -1,1 +1,5 @@
 *.tar.gz
+!docs/*
+*.o
+prog
+test-suite

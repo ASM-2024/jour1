@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="author" content="ne.audemard" />
+  <meta name="author" content="noe.audemard" />
   <title>GDB</title>
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/github.min.css">
@@ -45,19 +45,92 @@
             <ul>
           <li><a href="#">Navigation</a>
             <ul>
-            <li><a href="#gnu-debugger">GNU DeBugger</a></li>
+            <li><a href="#what-is-gdb">What is GDB ?</a></li>
+            <li><a href="#how-to-use-gdb-for-c-code">How to use GDB for C code</a></li>
+            <li><a href="#printing-information">Printing information</a></li>
+            <li><a href="#breakpoints">Breakpoints</a></li>
+            <li><a href="#abbreviations">Abbreviations</a></li>
+            <li><a href="#tips-and-tricks">Tips and tricks</a></li>
+            <li><a href="#going-further">Going further</a></li>
             </ul>
           </li>
       </ul>
         </nav>
 <h1 class="title">GDB</h1>
-<p class="author">ne.audemard</p>
+<p class="author">noe.audemard</p>
 </header>
 <main>
 <hr>
 <article>
-<h1 id="gnu-debugger">GNU DeBugger</h1>
-<p>very nice, much love</p>
+<h1 id="what-is-gdb">What is GDB ?</h1>
+<p>The GNU DeBugger (GDB for short), is a debugger that runs on many Unix-like systems, including Linux. In short, a debugger is used to run a target program step by step, in a controlled environment. This allows the user to monitor the behavior of the target at all stages of execution, which makes debugging much easier. GDB can be used to debug many languages, such as Assembly, C, C++ and Rust. This means it will be your main debugging tool for the S4 and Ing1.<br />
+</p>
+<p>Refer to https://ftp.gnu.org/old-gnu/Manuals/gdb/html_chapter/gdb_toc.html for a complete guide.</p>
+<h1 id="how-to-use-gdb-for-c-code">How to use GDB for C code</h1>
+<p>Use the provided debugme.c file for the following tutorial<br />
+<br />
+The first step to using GDB with the c language is to add “-g” to the compilation flags you use<br />
+<code>gcc debugme.c -g</code><br />
+This adds debugging information to the executable. This debugging information contains variable types, function prototypes…</p>
+<p>Next, you have to run your program with GDB.<br />
+<code>gdb ./a.out</code><br />
+This will open GDB. You can now start the execution of the program by typing <code>start</code>.<br />
+GDB will print the line you are currently on. In order to execute the next line, you can type <code>next</code><br />
+If you want to see the lines around the one you are currently on, you can use <code>list</code>. You can put a number after list to specify how many lines you want to show.<br />
+Another way of doing this is by typing <code>tabset</code>. This will change the layout of the debugger and persistently show the lines around the one you are running. This is what we recommend using.<br />
+<br />
+You can start the program again by typing <code>start</code> again, for example if you reached the end of the program.<br />
+<br />
+If you used <code>tabset</code> or <code>list</code> properly, you should be seeing the subfunction <em>multiply</em>. In order to debug a subfunction, you need to use <code>step</code> instead of <code>next</code> in the line the function is called. Try it<br />
+<br />
+If you want to stop GDB, you can use either <code>quit</code> or Ctrl-D<br />
+<br />
+This concludes the basic of using GDB</p>
+<h1 id="printing-information">Printing information</h1>
+<p>In order to debug efficiently, you will need to know the value of the variables of your program. To do that in GDB, you can use <code>print myvar</code><br />
+You can also print an expression:<br />
+<code>print mylist[2]</code><br />
+<code>print *mypointer</code><br />
+You can also cast the variables you print”<br />
+<br />
+A very useful feature of the GDB print function is the <em>format</em>. You can use it the following way:<br />
+<code>print /MyFormat MyVar</code><br />
+The valid formats are:<br />
+o - octal<br />
+x - hexadecimal<br />
+u - unsigned decimal<br />
+t - binary<br />
+f - floating point<br />
+a - address<br />
+c - char<br />
+<br />
+If you need to print something very often, you can use the <code>display</code> command. It is used the same way as the <code>print</code> command, except it will print what you asked it to every time you write another command.<br />
+To stop a display, you can use <code>undisplay</code>.</p>
+<h1 id="breakpoints">Breakpoints</h1>
+<p>`When debugging a specific portion of a program, using <code>next</code> over and over can be very tedious. Instead of doing this, you can use breakpoints:<br />
+- Set one or more breakpoints in the portions of the program you want to debug<br />
+- Use <code>continue</code><br />
+In order to set a breakpoint, you do:<br />
+<code>break FunctionName</code> or <code>break LineNumber</code>. There are other ways of settings breakpoints.<br />
+The <code>continue</code> function will execute the program until it reaches a breakpoint or the end of the program.<br />
+We highly recommend you also learn to use the basics of watchpoints and catchpoints even if we wont cover them here:<br />
+<a href="https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_29.html#SEC30">Watchpoints</a><br />
+<a href="https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_30.html#SEC31">Catchpoints</a></p>
+<h1 id="abbreviations">Abbreviations</h1>
+<p>Since typing the name of the commands in full is long and rather useless, GDB accomodates abbreviations. You can type the beginning of a command and, as long as no other command has the same name, GDB will recognize what you meant.<br />
+Common abbreviations are:<br />
+- next –&gt; n<br />
+- step –&gt; s<br />
+- break –&gt; b<br />
+- continue –&gt; c<br />
+- tabset –&gt; tab<br />
+And many more</p>
+<h1 id="tips-and-tricks">Tips and tricks</h1>
+<p>If you press enter while no command is written, GDB will repeat the last command used. This means that there is no need to repeat the same command multiple times in a row<br />
+<br />
+You can change what part of GDB is focused by using <em>Ctrl-x o</em>. This is very useful because specific keyboard inputs (E.g. Directional arrows) affect the part of GDB that is focused. If the terminal part is focused, you can use the arrows to modify the current command and go back to the previous commands, just like in a normal terminal.<br />
+</p>
+<h1 id="going-further">Going further</h1>
 <hr>
 </article>
 </main>

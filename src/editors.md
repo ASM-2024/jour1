@@ -110,4 +110,4 @@ packadd termdebug
 
 # Our `.vimrc`s ...
 - [mathieu.fourre](https://github.com/mthfrr/config/blob/master/.vimrc)
-- TODO
+- [timothee.denizou](https://github.com/tim-tim707/dotfiles/blob/master/.vimrc)
