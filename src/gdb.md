@@ -14,7 +14,7 @@ GDB can be used to debug many languages, such as Assembly, C, C++ and Rust. This
 Refer to https://ftp.gnu.org/old-gnu/Manuals/gdb/html_chapter/gdb_toc.html for a complete guide.
 
 # How to use GDB for C code
-Use the provided debugme.c file for the following tutorial\
+Use the provided [debugme.c](debugme.c) file for the following tutorial\
 \
 The first step to using GDB with the c language is to add "-g" to the compilation flags you use\
  ```gcc debugme.c -g```\
@@ -92,7 +92,13 @@ This means that there is no need to repeat the same command multiple times in a 
 You can change what part of GDB is focused by using *Ctrl-x o*.
 This is very useful because specific keyboard inputs (E.g. Directional arrows) affect the part of GDB that is focused.
 If the terminal part is focused, you can use the arrows to modify the current command and go back to the previous commands, just like in a normal terminal.\
+\
+If you want to debug a program with arguments, you can do the following: ```gdb --args ./MyProgram arg1 arg2```
 
 # Going further
 
+GDB has implemented reverse-debugging, which allows you to go back in your program: [Reverse debuggin with GDB](https://sourceware.org/gdb/wiki/ReverseDebug)\
+\
+As said in the Breakpoint section, read up on [Watchpoints](https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_29.html#SEC30)
+and [Catchpoints](https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_30.html#SEC31)
 
