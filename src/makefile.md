@@ -207,6 +207,7 @@ Your job is to write the Makefile for this project.
 Try to make it as clean and generic as possible !
 
 Here are the rule you will implement:
+
 - release (the default target)
 - debug
 - test
