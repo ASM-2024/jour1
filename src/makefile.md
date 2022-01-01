@@ -201,7 +201,7 @@ $ tree make_exo
 5 directories, 10 files
 ```
 
-[skeleton](make_exo.tar.gz)
+[skeleton](make_exo.tar.gz) (reminder: `tar -xvf make_exo.tar.gz` )
 
 Your job is to write the Makefile for this project.
 Try to make it as clean and generic as possible !
