@@ -111,4 +111,4 @@ packadd termdebug
 # Our `.vimrc`s ...
 - [mathieu.fourre](https://github.com/mthfrr/config/blob/master/.vimrc)
 - [timothee.denizou](https://github.com/tim-tim707/dotfiles/blob/master/.vimrc)
-- [raphael.duhen]("https://github.com/ASM-2024/jour1/blob/master/docs/raphael.duhen.vimrc")
+- [raphael.duhen](https://github.com/ASM-2024/jour1/blob/master/docs/raphael.duhen.vimrc)
