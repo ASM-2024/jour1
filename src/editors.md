@@ -40,7 +40,7 @@ setted by EPITA.
 
 As you aready know, only the `$HOME/afs` folder is preserved on the PIE.
 This means that if your create a `$HOME/.vimrc` it will be lost after a reboot.
-The soution is to create the file in `$HOME/afs/.config/` and then add the
+The soution is to create the file in `$HOME/afs/.confs/` and then add the
 name of the file in the special script in the same folder.
 
 ```sh
