@@ -183,23 +183,23 @@ FOOSUFFIX = $(addsuffix suffic, foo)</code></pre>
 <p>The test-suite uses <code>Criterion</code> which is a simple-to-use testing framework. (I strongly encourage you to use it to test you piscine exercises)</p>
 <p>The project tree looks like this:</p>
 <pre class="sh"><code>$ tree make_exo
-.
+make_exo/
 ├── Makefile
 ├── src
 │   ├── add
 │   │   ├── add.c
 │   │   └── add.h
-│   ├── main.c
 │   ├── mul
 │   │   ├── mul.c
 │   │   └── mul.h
+│   ├── prog.c
 │   └── sub
 │       ├── sub.c
 │       └── sub.h
 └── tests
     └── testfile.c
 
-5 directories, 10 files</code></pre>
+5 directories, 9 files</code></pre>
 <p>Download the <a href="make_exo.tar.gz">skeleton</a> here. (reminder: <code>tar -xvf make_exo.tar.gz</code> )</p>
 <p>Your job is to write the <code>Makefile</code> for this project. Try to make it as clean and generic as possible !</p>
 <p>Here are the rule you will implement:</p>
@@ -242,7 +242,7 @@ rm -f  tests/testfile.o tests/testfile.o</code></pre>
 <p>Remember, the true goal is to make it as <strong>generic</strong> and <strong>elegent</strong> as possible not to brut-force your way by hard coding everything <code>:)</code></p>
 <p><strong>Impress us !</strong></p>
 <h1 id="correction">Correction</h1>
-<p>A correction will be given either during the lesson or afterwards. It will be on Discord and here on this repo. This will <strong>not</strong> be the <strong>only</strong> nor <strong>the best</strong> solution to the problem but do take the time to read it as it uses advanced concepts !</p>
+<p>A correction will be given either during the lesson or afterwards. It will be on Discord and here on this repo. This will <strong>not</strong> be the <strong>only</strong> nor <strong>the best</strong> solution to the problem but do take the time to read it as it uses advanced concepts ! <a href="https://github.com/ASM-2024/jour1/blob/master/docs/Makefile">makefile</a></p>
 <h1 id="fun-fact-this-page-was-generated-using-pandoc-and-make">Fun fact, this page was generated using pandoc and make</h1>
 <p><a href="https://github.com/mthfrr/seminaire_spe_2022/blob/master/Makefile">link</a></p>
 <hr>

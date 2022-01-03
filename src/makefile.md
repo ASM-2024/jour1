@@ -187,23 +187,23 @@ The test-suite uses `Criterion` which is a simple-to-use testing framework.
 The project tree looks like this:
 ```sh
 $ tree make_exo
-.
+make_exo/
 ├── Makefile
 ├── src
 │   ├── add
 │   │   ├── add.c
 │   │   └── add.h
-│   ├── main.c
 │   ├── mul
 │   │   ├── mul.c
 │   │   └── mul.h
+│   ├── prog.c
 │   └── sub
 │       ├── sub.c
 │       └── sub.h
 └── tests
     └── testfile.c
 
-5 directories, 10 files
+5 directories, 9 files
 ```
 
 Download the [skeleton](make_exo.tar.gz) here. (reminder: `tar -xvf make_exo.tar.gz` )
@@ -269,6 +269,7 @@ A correction will be given either during the lesson or afterwards. It will be on
 Discord and here on this repo. This will **not** be the **only** nor **the best**
 solution to the problem but do take the time to read it as it uses advanced
 concepts !
+[makefile](https://github.com/ASM-2024/jour1/blob/master/docs/Makefile)
 
 # Fun fact, this page was generated using pandoc and make
 [link](https://github.com/mthfrr/seminaire_spe_2022/blob/master/Makefile)
