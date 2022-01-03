@@ -44,8 +44,8 @@ The soution is to create the file in `$HOME/afs/.confs/` and then add the
 name of the file in the special script in the same folder.
 
 ```sh
-$ touch ~/afs/.config/vimrc # note that there is not point here
-$ vim ~/afs/.config/install.sh
+$ touch ~/afs/.confs/vimrc # note that there is not point here
+$ vim ~/afs/.confs/install.sh
 ```
 
 # An example of .vimrc (parts of mine)

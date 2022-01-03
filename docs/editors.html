@@ -75,8 +75,8 @@
 <p>Look for a file called <code>.vimrc</code> in your <code>$HOME</code> folder. You may not have any by default but you are still using the default <code>.vimrc</code> setted by EPITA.</p>
 <h1 id="pie-specific-setup">PIE specific setup</h1>
 <p>As you aready know, only the <code>$HOME/afs</code> folder is preserved on the PIE. This means that if your create a <code>$HOME/.vimrc</code> it will be lost after a reboot. The soution is to create the file in <code>$HOME/afs/.confs/</code> and then add the name of the file in the special script in the same folder.</p>
-<pre class="sh"><code>$ touch ~/afs/.config/vimrc # note that there is not point here
-$ vim ~/afs/.config/install.sh</code></pre>
+<pre class="sh"><code>$ touch ~/afs/.confs/vimrc # note that there is not point here
+$ vim ~/afs/.confs/install.sh</code></pre>
 <h1 id="an-example-of-.vimrc-parts-of-mine">An example of .vimrc (parts of mine)</h1>
 <pre class="vim"><code>&quot; remove annoying beep
 set belloff=all
