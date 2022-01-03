@@ -15,7 +15,8 @@ CFLAGS += $(INC_FLAGS)
 
 all: release
 
-release: CFLAGS += -O2 -DNDBUG
+release: CFLAGS += -O2
+release: CPPFLAGS += -DNDBUG
 release: $(TARGET)
 
 debug: CFLAGS += -g -fsanitize=address
